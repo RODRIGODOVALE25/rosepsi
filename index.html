@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rosemeire Almeida - Psicóloga  | Acolhimento no Luto</title>
+    <title>Rosemeire Almeida - Psicóloga | Acolhimento no Luto</title>
     <style>
         * {
             margin: 0;
@@ -32,8 +32,183 @@
             overflow-x: hidden;
             background: var(--bg-light);
         }
+
+        /* Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--green-soft);
+        }
+
+        .nav-logo span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 300;
+            border-left: 1px solid var(--border-light);
+            padding-left: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(90, 122, 124, 0.2);
+        }
+
+        .nav-cta:hover {
+            background: #4A6A6C;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(90, 122, 124, 0.3);
+        }
+
+        /* Mobile Menu Toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1rem;
+            }
+
+            .nav-logo span {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 2rem;
+                padding: 3rem 0;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                font-size: 1.1rem;
+            }
+
+            .nav-cta {
+                font-size: 1rem;
+                padding: 0.8rem 2rem;
+            }
+        }
         
-        /* Hero Section */
+        /* Hero Section - Adjusted for fixed header */
         .hero {
             min-height: 100vh;
             background: linear-gradient(180deg, #FFFFFF 0%, rgba(221, 160, 164, 0.08) 50%, rgba(90, 122, 124, 0.05) 100%);
@@ -41,6 +216,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            padding-top: 70px; /* Account for fixed header */
             position: relative;
         }
         
@@ -354,6 +530,17 @@
             color: var(--green-soft);
             opacity: 0.6;
             filter: grayscale(20%);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--green-soft);
         }
         
         .service-card h3 {
@@ -652,56 +839,95 @@
     </style>
 </head>
 <body>
+    <!-- Navigation Header -->
+    <header>
+        <nav>
+            <a href="#home" class="nav-logo">
+                Rosemeire Almeida
+                <span>Psicóloga</span>
+            </a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Início</a></li>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                <li><a href="#processo" class="nav-link">Como Funciona</a></li>
+                <li><a href="#faq" class="nav-link">Dúvidas</a></li>
+                <li><a href="#contato" class="nav-cta">Agendar Consulta</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
             <h1>Rosemeire Almeida</h1>
-            <p class="subtitle">Psicóloga  | CRP 04/67753</p>
-            <div class="online-badge">Atendimento 100% Online</div>
+            <p class="subtitle">Psicóloga | CRP 04/67753</p>
             <p class="description">
-                Acolhimento especializado para mulheres em processo de luto.<br>
-                Um espaço seguro e confidencial para ressignificar perdas e reconstruir caminhos,<br>
-                no conforto e privacidade do seu ambiente.
+                Atendimento Psicológico Online para Mulheres em Luto<br>
+                Um espaço ético, acolhedor e confidencial para elaborar perdas e reconstruir sentidos,<br>
+                com conforto e privacidade, no seu próprio ambiente.
             </p>
             <a href="https://wa.me/5531999376327?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20agendar%20uma%20consulta.%20" class="cta-button" target="_blank">Agende sua Primeira Sessão</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about">
+    <section class="about" id="sobre">
         <div class="container">
             <div class="about-content">
                 <div class="about-text fade-in">
-                    <h2>Acolhimento Especializado no Luto</h2>
+                    <h2>Sobre mim</h2>
                     <p>
-                        O luto é uma experiência profundamente humana que nos atravessa de diferentes formas. 
-                        Como psicóloga existencial, ofereço um espaço de escuta qualificada e acolhedora 
-                        para mulheres que vivenciam perdas - sejam elas concretas ou simbólicas.
+                        Sou psicóloga com experiência clínica no acolhimento de mulheres em situações de perda e luto. 
+                        Minha prática é fundamentada em princípios da abordagem fenomenológica existencial e sustentada 
+                        por valores como respeito, sigilo e escuta humanizada.
                     </p>
                     <p>
-                        Com mais de 300 atendimentos realizados e especialização em Psicologia Hospitalar 
-                        e da Saúde, meu trabalho é pautado pela ética profissional, respeito e cuidado integral 
-                        com cada história que me é confiada. O atendimento online proporciona acessibilidade 
-                        e conforto, mantendo a qualidade e efetividade do processo terapêutico.
+                        Com especialização em Psicologia Hospitalar e da Saúde e mais de 300 atendimentos realizados, 
+                        atuo com dedicação e sensibilidade diante da singularidade de cada história. A terapia online 
+                        possibilita um cuidado acessível, confortável e efetivo. Ela mantém a mesma qualidade dos 
+                        atendimentos presenciais.
                     </p>
                 </div>
                 <div class="credentials fade-in">
                     <div class="credential-item">
-                        <div class="credential-icon">🎓</div>
+                        <div class="credential-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+                        </div>
                         <div>
                             <h4>Formação Especializada</h4>
                             <p>Psicologia Hospitalar e da Saúde</p>
                         </div>
                     </div>
                     <div class="credential-item">
-                        <div class="credential-icon">💻</div>
+                        <div class="credential-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
                         <div>
                             <h4>Atendimento Online</h4>
                             <p>Sessões individuais de 50 minutos</p>
                         </div>
                     </div>
                     <div class="credential-item">
-                        <div class="credential-icon">📊</div>
+                        <div class="credential-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
                         <div>
                             <h4>Experiência Clínica</h4>
                             <p>+ 300 mulheres acolhidas</p>
@@ -712,99 +938,110 @@
         </div>
     </section>
 
-    <!-- Online Service Info -->
-    <section class="online-info">
-        <div class="container">
-            <div class="online-features">
-                <div class="online-feature fade-in">
-                    <div class="online-feature-icon">🏠</div>
-                    <h3>Conforto do seu Espaço</h3>
-                    <p>Realize as sessões no ambiente onde você se sente mais segura e acolhida</p>
-                </div>
-                <div class="online-feature fade-in">
-                    <div class="online-feature-icon">🔒</div>
-                    <h3>Privacidade Garantida</h3>
-                    <p>Plataforma segura com criptografia para total confidencialidade</p>
-                </div>
-                <div class="online-feature fade-in">
-                    <div class="online-feature-icon">📅</div>
-                    <h3>Flexibilidade de Horários</h3>
-                    <p>Agendamentos adaptados à sua rotina, sem deslocamentos</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Services Section -->
-    <section class="services">
+    <section class="services" id="servicos">
         <div class="container">
             <h2>Áreas de Acolhimento</h2>
             <div class="services-grid">
                 <div class="service-card fade-in">
-                    <div class="service-icon">🤍</div>
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
                     <h3>Luto por Morte</h3>
-                    <p>Acompanhamento sensível para processar a perda de entes queridos, respeitando o tempo único de cada processo de elaboração.</p>
+                    <p>Acompanhamento psicológico diante da perda de entes queridos, respeitando o tempo e os significados únicos de cada vivência.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">🌸</div>
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="7"></circle>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                        </svg>
+                    </div>
                     <h3>Lutos Simbólicos</h3>
-                    <p>Trabalho com perdas não concretas: términos de relacionamentos, mudanças profissionais, perdas de identidade, projetos de vida e etc.</p>
+                    <p>Acolhimento para perdas que nem sempre são visíveis: términos de relacionamentos, mudanças profissionais, perdas de identidade, rupturas de projetos ou vínculos significativos.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">🕊️</div>
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 11H3v10h18V11h-6"></path>
+                            <path d="M9 7V1h6v6"></path>
+                        </svg>
+                    </div>
                     <h3>Luto Antecipatório</h3>
-                    <p>Suporte durante processos de adoecimento próprio ou de familiares, preparação emocional para perdas iminentes.</p>
+                    <p>Suporte emocional em situações de adoecimento próprio ou de familiares, auxiliando na preparação e enfrentamento de perdas iminentes.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">💝</div>
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                    </div>
                     <h3>Luto Materno</h3>
-                    <p>Acolhimento especializado para perdas gestacionais, neonatais e os diversos lutos presentes na experiência materna.</p>
+                    <p>Atenção especializada para perdas gestacionais, neonatais e outros lutos que atravessam a experiência da maternidade.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">🦋</div>
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="5" cy="6" r="3"></circle>
+                            <circle cx="19" cy="6" r="3"></circle>
+                            <circle cx="5" cy="18" r="3"></circle>
+                            <circle cx="19" cy="18" r="3"></circle>
+                            <line x1="8" y1="6" x2="16" y2="6"></line>
+                            <line x1="8" y1="18" x2="16" y2="18"></line>
+                            <line x1="5" y1="9" x2="5" y2="15"></line>
+                            <line x1="19" y1="9" x2="19" y2="15"></line>
+                        </svg>
+                    </div>
                     <h3>Transições de Vida</h3>
-                    <p>Suporte em mudanças significativas: menopausa, aposentadoria, síndrome do ninho vazio e outras transições existenciais.</p>
+                    <p>Apoio em momentos de mudança profunda, como menopausa, aposentadoria, separações e a síndrome do ninho vazio.</p>
                 </div>
                 <div class="service-card fade-in">
-                    <div class="service-icon">🌱</div>
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
                     <h3>Ressignificação e Sentido</h3>
-                    <p>Construção de novos significados e possibilidades de vida, integrando a experiência da perda ao continuum existencial.</p>
+                    <p>Processos terapêuticos voltados à construção de novos significados e formas de existir após a experiência de perda.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Process Section -->
-    <section class="process">
+    <section class="process" id="processo">
         <div class="container">
-            <h2>Como Funciona o Atendimento Online</h2>
+            <h2>Como funciona o atendimento psicológico online</h2>
             <div class="process-steps">
                 <div class="process-step fade-in">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Primeiro Contato</h3>
-                        <p>Entre em contato para agendarmos uma conversa inicial. Esclarecerei suas dúvidas sobre o processo terapêutico online.</p>
+                        <p>Você entra em contato pelo WhatsApp para combinarmos um horário para uma conversa inicial. Esse primeiro momento é importante para entender suas necessidades e esclarecer dúvidas.</p>
                     </div>
                 </div>
                 <div class="process-step fade-in">
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>Agendamento</h3>
-                        <p>Definimos o melhor horário para suas sessões semanais de 50 minutos, considerando sua rotina e fuso horário.</p>
+                        <p>Juntas, definimos o melhor horário para os encontros semanais, considerando sua rotina e fuso horário. As sessões têm duração de 50 minutos.</p>
                     </div>
                 </div>
                 <div class="process-step fade-in">
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h3>Sessão Online</h3>
-                        <p>Nos encontramos virtualmente através de plataforma segura, em um espaço de escuta acolhedora e sigilosa.</p>
+                        <p>Os atendimentos acontecem por chamada de vídeo, em uma plataforma segura e com criptografia. O link da sessão é enviado com antecedência. É importante estar em um ambiente reservado, tranquilo e com boa conexão de internet.</p>
                     </div>
                 </div>
                 <div class="process-step fade-in">
                     <div class="step-number">4</div>
                     <div class="step-content">
                         <h3>Processo Terapêutico</h3>
-                        <p>Construímos juntas um caminho de elaboração e ressignificação, respeitando seu tempo e sua singularidade.</p>
+                        <p>Durante os encontros, construímos um espaço de escuta sensível, elaboração e ressignificação das suas vivências. Todo o processo é conduzido com ética, cuidado e respeito ao seu tempo e singularidade.</p>
                     </div>
                 </div>
             </div>
@@ -812,7 +1049,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq">
+    <section class="faq" id="faq">
         <div class="container">
             <h2>Perguntas Frequentes</h2>
             <p class="faq-subtitle">Esclareça suas dúvidas sobre o processo terapêutico</p>
@@ -821,56 +1058,56 @@
                 <div class="faq-item">
                     <h3 class="faq-question">Como saber se preciso de terapia?</h3>
                     <div class="faq-answer">
-                        <p>A psicoterapia pode auxiliar em diversas situações: processos de luto, insegurança, culpa, medos, cuidados com a saúde emocional e autoconhecimento. É especialmente recomendada quando emoções difíceis começam a interferir em suas atividades diárias ou quando surgem sintomas físicos relacionados ao sofrimento emocional. Buscar terapia é um ato de cuidado consigo mesma.</p>
+                        <p>A psicoterapia é um recurso fundamental em diferentes momentos da vida, especialmente quando emoções difíceis impactam seu bem-estar e sua rotina. Se você está lidando com uma perda, vivências dolorosas ou deseja se conhecer melhor, buscar acolhimento psicológico é um passo importante de cuidado consigo mesma.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">Como funciona o atendimento online?</h3>
+                    <h3 class="faq-question">O atendimento online é eficaz?</h3>
                     <div class="faq-answer">
-                        <p>O atendimento online possui a mesma eficácia do presencial, seguindo todos os princípios éticos da psicologia. As sessões acontecem via Google Meet em ambiente seguro e sigiloso. É importante estar em um local privado, sem interrupções, com boa conexão de internet. O link é enviado por WhatsApp antes do horário agendado.</p>
+                        <p>Sim. O atendimento psicológico online é regulamentado pelo Conselho Federal de Psicologia e segue todos os princípios éticos da profissão. As sessões ocorrem em ambiente sigiloso, com a mesma qualidade e efetividade dos atendimentos presenciais.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <h3 class="faq-question">Como é a primeira sessão?</h3>
                     <div class="faq-answer">
-                        <p>O primeiro encontro é um momento de acolhimento onde conversaremos sobre suas necessidades, expectativas e o que a trouxe até aqui. É um espaço seguro para você compartilhar sua história e compreender como podemos trabalhar juntas em seu processo de cuidado.</p>
+                        <p>A primeira sessão é um momento de acolhimento e escuta. Conversaremos sobre sua história, suas necessidades e como a terapia pode ser um espaço de elaboração e fortalecimento emocional.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <h3 class="faq-question">Qual a frequência e duração das sessões?</h3>
                     <div class="faq-answer">
-                        <p>Cada sessão tem duração de 50 minutos. Inicialmente, os encontros são semanais em dia e horário fixos. Conforme a evolução do processo terapêutico, podemos espaçar para quinzenais e depois mensais, sempre respeitando suas necessidades e ritmo pessoal.</p>
+                        <p>As sessões duram 50 minutos e, geralmente, acontecem semanalmente. Ao longo do processo, a frequência pode ser ajustada conforme a sua necessidade.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <h3 class="faq-question">Por quanto tempo farei terapia?</h3>
                     <div class="faq-answer">
-                        <p>Cada processo é único e o tempo varia conforme suas necessidades, objetivos e engajamento. Não existe um prazo pré-determinado - a terapia é um espaço seu, que respeita sua singularidade e tempo de elaboração. A alta acontece quando você se sente fortalecida para seguir sua jornada.</p>
+                        <p>Cada processo é único. O tempo de terapia varia de acordo com suas demandas e objetivos. O término ocorre quando você se sente fortalecida para seguir sua jornada com mais autonomia.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <h3 class="faq-question">Posso remarcar minha sessão?</h3>
                     <div class="faq-answer">
-                        <p>Sim, compreendo que imprevistos acontecem. Caso precise remarcar, solicito que me avise com pelo menos 24 horas de antecedência para que possamos reorganizar nossos horários da melhor forma.</p>
+                        <p>Sim. Entendo que imprevistos acontecem. Caso precise remarcar, peço que me avise com pelo menos 24 horas de antecedência, para podermos reorganizar nossa agenda.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">Vocês atendem por convênio?</h3>
+                    <h3 class="faq-question">Atende por convênio?</h3>
                     <div class="faq-answer">
-                        <p>Os atendimentos são particulares, não trabalho com convênios.</p>
+                        <p>Os atendimentos são realizados de forma particular. Não atendo por planos de saúde.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <h3 class="faq-question">Qual o valor da consulta?</h3>
                     <div class="faq-answer">
-                        <p>Conforme o Código de Ética Profissional do Psicólogo (Art. 20), os valores não podem ser divulgados publicamente. Entre em contato pelo WhatsApp para conhecer os valores e condições de pagamento. Busco sempre adequar as possibilidades para tornar o cuidado acessível.</p>
+                        <p>Conforme o Código de Ética Profissional do Psicólogo (Art. 20), os valores não podem ser divulgados publicamente. Para informações sobre valores e formas de pagamento, entre em contato diretamente. A conversa será conduzida com ética e transparência.</p>
                     </div>
                 </div>
 
@@ -882,15 +1119,17 @@
                 </div>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">Como agendar uma consulta?</h3>
+                    <h3 class="faq-question">Agende sua sessão</h3>
                     <div class="faq-answer">
-                        <p>O agendamento é feito diretamente pelo WhatsApp. Entre em contato e conversaremos sobre os melhores horários para você. Estou aqui para acolher suas necessidades desde o primeiro contato.</p>
+                        <p>Entre em contato pelo WhatsApp para combinarmos o melhor horário para você. Estarei disponível para acolher sua história desde o primeiro contato.</p>
                     </div>
                 </div>
             </div>
 
             <div class="emergency-notice">
-                <p><strong>Atenção:</strong> Este serviço não oferece atendimento de emergência para crises suicidas. Em caso de crise, ligue para o CVV (188). Em situações de emergência, procure o hospital mais próximo ou acione o SAMU (192) ou Corpo de Bombeiros (193).</p>
+                <p><strong>Atenção:</strong> Este serviço não realiza atendimentos de emergência.<br>
+                Em casos de crise, entre em contato com o CVV pelo número <strong>188</strong> (ligação gratuita, 24 horas).<br>
+                Situações de risco imediato devem ser encaminhadas ao <strong>SAMU (192)</strong>, <strong>Corpo de Bombeiros (193)</strong> ou ao hospital mais próximo.</p>
             </div>
         </div>
     </section>
@@ -898,17 +1137,19 @@
     <!-- Contact Section -->
     <section class="contact" id="contato">
         <div class="container">
-            <h2>Inicie sua Jornada de Cuidado</h2>
+            <h2>Sobre o Início do Atendimento</h2>
             <p class="contact-subtitle">
-                Dar o primeiro passo pode ser desafiador, mas você não precisa atravessar sozinha.
+                O início do atendimento pode levantar dúvidas ou inseguranças. Estou disponível para esclarecer e acolher suas necessidades, com escuta ética e sensível desde o primeiro contato.
             </p>
             <div class="contact-box">
                 <div class="session-info">
-                    <h3>Informações das Sessões</h3>
-                    <p><strong>Duração:</strong> 50 minutos</p>
-                    <p><strong>Modalidade:</strong> 100% Online</p>
-                    <p><strong>Frequência:</strong> Semanal (recomendada)</p>
+                    <h3>Agendamentos e Informações das Sessões</h3>
+                    <p><strong>Modalidade:</strong> Atendimento 100% online</p>
+                    <p><strong>Público:</strong> Mulheres maiores de 18 anos</p>
+                    <p><strong>Duração da sessão:</strong> 50 minutos</p>
+                    <p><strong>Frequência recomendada:</strong> Semanal</p>
                 </div>
+                <p style="margin: 1.5rem 0;"></p>
                 <a href="https://wa.me/5531999376327?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20agendar%20uma%20consulta.%20" class="contact-button" target="_blank">Agendar Primeira Sessão</a>
             </div>
         </div>
@@ -918,7 +1159,6 @@
     <footer>
         <div class="footer-content">
             <p>Rosemeire Almeida - Psicóloga | CRP 04/67753</p>
-            <p>Atendimento exclusivamente online para mulheres 18+</p>
             <div class="ethics-note">
                 Este serviço segue rigorosamente o Código de Ética Profissional do Psicólogo 
                 conforme Resolução CFP nº 010/05. O sigilo e a confidencialidade são garantidos 
@@ -928,6 +1168,33 @@
     </footer>
 
     <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Add scrolled class to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
@@ -952,9 +1219,13 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerOffset = 70; // Height of fixed header
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
